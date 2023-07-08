@@ -1,22 +1,23 @@
-import logo from './logo.svg';
+
 import './App.css';
+import BarraNav from './components/BarraNav/BarraNav';
+import Carrito from './CardWidget/CardWidget'
+import Saludo from './components/Saludo/Saludo'
+import Garras from '../src/assets/img/garras.png'
+import CardWidget from './CardWidget/CardWidget';
+
+
+
 
 function App() {
   return (
     <div className="App">
+      <nav>
+        <BarraNav/>
+      </nav>
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <img className="garras" src={Garras} />
+       <Saludo username="Emanuel"/>
       </header>
     </div>
   );
