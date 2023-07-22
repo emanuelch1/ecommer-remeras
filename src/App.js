@@ -1,23 +1,31 @@
 
 import './App.css';
-import BarraNav from './components/BarraNav/BarraNav';
-import Carrito from './CardWidget/CardWidget'
+import NavBar from './components/NavBar/NavBar';
 import Saludo from './components/Saludo/Saludo'
 import Garras from '../src/assets/img/garras.png'
-import CardWidget from './CardWidget/CardWidget';
-
-
+import ItemListContainer from './components/ItemListContainer/ItemListContainer';
+import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
+import { BrowserRouter , Routes, Route } from 'react-router-dom';
 
 
 function App() {
   return (
     <div className="App">
-      <nav>
-        <BarraNav/>
-      </nav>
       <header className="App-header">
-      <img className="garras" src={Garras} />
-       <Saludo username="Emanuel"/>
+      <BrowserRouter>
+             <nav>
+               <NavBar/>
+             </nav>
+             <img className="garras" src={Garras} />
+              <Saludo username="a la mejor tienda"/>
+              <Routes>
+                <Route path="/" element={<ItemListContainer/>} />
+                <Route path="/category/:categotyid*" element={<ItemListContainer/>} />
+
+                <Route path="/product/:id" element={<ItemDetailContainer/>} />
+                <Route path="*" element={<h1>Page not found: 404 </h1>} />
+              </Routes> 
+       </BrowserRouter>
       </header>
     </div>
   );
