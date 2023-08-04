@@ -214,7 +214,7 @@ export function getProductData(idURL) {
 }
 
 
-export function getCategoryData(categotyURL) {
+export function getCategoryData(categoryURL) {
     return new Promise((resolve,reject)=>{
         const productos= [
            
@@ -314,11 +314,11 @@ export function getCategoryData(categotyURL) {
         
         ]
 
-        const categotuRequested= productos.filter( item=> { 
-           return item.category.toLowerCase() === categotyURL.toLowerCase()});
+        const categoryRequested= productos.filter( item=> { 
+           return item.category.toLowerCase() === categoryURL.toLowerCase()});
 
         setTimeout( ()=> {
-            resolve(categotuRequested)
+            resolve(categoryRequested)
         }, 2000 )
     })
 }

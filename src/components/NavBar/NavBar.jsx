@@ -12,6 +12,7 @@ function NavBar(){
               <ul className="navbar">
                     <img src={leon} />
                     <h1 className="titulo">Lion king</h1>
+                    <li><Link to="/">Inicio</Link></li>
                     <li><Link to="/category/Hombre">Hombres</Link></li>
                     <li><Link to="/category/Mujer">Mujer</Link></li>
                     <li><Link to="/category/Niño">Niño</Link></li>

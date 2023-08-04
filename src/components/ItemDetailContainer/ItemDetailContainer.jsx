@@ -1,15 +1,19 @@
-import{useState, useEffect} from "react";
+import{useState, useEffect, useContext} from "react";
 import {getProductData} from "../../servicios/asyncMocks";
 import BotonCantidad from "../BotonCantidad/BotonCantidad"
 import './ItemDetailContainer.css';
-import { useParams } from "react-router-dom";
-
+import { Link, useParams } from "react-router-dom";
+import ButtonComponent from "../ButtonComponent/ButtonComponent";
+import { cartContext } from "../../App";
 
 
 function ItemDetailContainer(){
     const [product, setProduct] = useState({});
     const {id} = useParams ();
     
+const {addToCart}= useContext(cartContext)
+
+
 
 async function requestProduct(){
     const respuesta = await getProductData(id);
@@ -18,8 +22,12 @@ async function requestProduct(){
 
 useEffect(()=>{
     requestProduct()
-}, []);
+}, [id]);
 
+function handleAddToCard (clickCount){
+    addToCart(product,clickCount);
+    alert (`Producto agregado al carrito, cantidad: ${clickCount}`);
+}
 
 return(
     <div>
@@ -29,8 +37,12 @@ return(
               <h3>{product.nombre} </h3>
               <p>{product.descripcion} </p>
               <p>Precio:{product.precio} </p>
-              <BotonCantidad/>
-              <button className="button">Comprar</button>
+              <BotonCantidad onConfirm={handleAddToCard} stock={5} />
+              <Link to="/">
+              <ButtonComponent>Volver al Inicio</ButtonComponent>
+              </Link>
+              
+              
          </div>
     </div>
     
