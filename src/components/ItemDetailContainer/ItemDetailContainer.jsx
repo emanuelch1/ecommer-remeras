@@ -5,7 +5,7 @@ import './ItemDetailContainer.css';
 import { Link, useParams } from "react-router-dom";
 import ButtonComponent from "../ButtonComponent/ButtonComponent";
 import { cartContext } from "../../App";
-
+import Swal from 'sweetalert2';
 
 
 function ItemDetailContainer(){
@@ -28,7 +28,8 @@ useEffect(()=>{
 
 function handleAddToCard (clickCount){
     addToCart(product,clickCount);
-    alert (`Producto agregado al carrito, cantidad: ${clickCount}`);
+    Swal.fire(`Producto agregado al carrito, cantidad: ${clickCount}`);
+   
     setIsAddedToCart(true)
 }
 
@@ -42,7 +43,7 @@ return(
               <p>Precio:{product.precio} </p>
               {isAddedToCart ? (
                 <button>Ir al carrito</button>
-              ) : ( <BotonCantidad onConfirm={handleAddToCard} stock={5} />
+              ) : ( <BotonCantidad onConfirm={handleAddToCard} stock={product.stock} />
 
               )
               }

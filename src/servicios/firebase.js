@@ -1,6 +1,6 @@
 
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs,doc, getDoc, where, query  } from "firebase/firestore"
+import { getFirestore, collection, getDocs,doc, getDoc, where, query , addDoc, } from "firebase/firestore"
 const firebaseConfig = {
   apiKey: "AIzaSyBY1YW-7z_WNcW4PSAKV-bZtyV5rkM_H1Q",
   authDomain: "remeras-lion-king.firebaseapp.com",
@@ -55,5 +55,22 @@ async function getCategoryData(){
   
 }
 
+async function createOrder(orderData){
+const collectionRef = collection(db, "orders") 
 
-export{getData, getProductData, getCategoryData};
+const docCreated = await addDoc(collectionRef, orderData)
+
+return (docCreated.id)
+ }
+
+ async function getOrder(id){
+  const docRef = doc(db, "orders", id);
+  const docSnapshot= await getDoc(docRef);
+  if (docSnapshot.exists()){
+    return{...docSnapshot.data(), id: docSnapshot.id};
+  } else{
+    throw new Error ("No se encuentra producto.")
+  }
+ }
+
+export { getData, getProductData, getCategoryData, createOrder, getOrder};

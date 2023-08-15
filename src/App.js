@@ -9,6 +9,7 @@ import { BrowserRouter , Routes, Route } from 'react-router-dom';
 import { createContext } from 'react';
 import { useState } from 'react';
 import CartContainer from "./components/CartContainer/CartContainer";
+import OrdenConfirm from './components/OrderConfirm/OrderConfirm';
 
 
 
@@ -21,14 +22,26 @@ function  CartContextProvider(props){
   const prueba ="otra prueba"
 
   function addToCart(product, count){
+    const newCart = [...cart];
+   if (isInCart(product.id)) {
+          const indexUpdate = cart.findIndex((item) => item.id === product.id);
+          newCart[indexUpdate].count+= count;
+          setCart(newCart);
+   }
+   else {
     const newCart = cart.map((item)=>item);
-    const newItemInCart ={count, ...product};
+    const newItemInCart ={...product, count };
     newCart.push(newItemInCart);
     setCart(newCart);
+   }
   }
 
+
+function isInCart(id) {
+  return cart.some((item)=> item.id === id);
+}
   function removeItem(id){
-    return null;
+    setCart(cart.filter((item)=>item.id !== id));
   }
 
 
@@ -77,6 +90,7 @@ function App() {
                          <Route path="/category/:categoryId*" element={<ItemListContainer/>} />
                          <Route path="/product/:id" element={<ItemDetailContainer/>} />
                          <Route path="/cart" element={ <CartContainer/>}  />
+                         <Route path="/order-confirmation/:id" element={<OrdenConfirm/>}/>
                          <Route path="*" element={<h1>Page not found: 404 </h1>} />
                       </Routes> 
                 </BrowserRouter>
