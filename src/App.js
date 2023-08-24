@@ -10,67 +10,10 @@ import { createContext } from 'react';
 import { useState } from 'react';
 import CartContainer from "./components/CartContainer/CartContainer";
 import OrdenConfirm from './components/OrderConfirm/OrderConfirm';
+import { cartContext,CartContextProvider } from './components/contex/cartContex';
+import Checkout from './components/Checkout/Checkout';
 
 
-
-
-
-const cartContext = createContext({ cart:[] } );
-
-function  CartContextProvider(props){
-  const [cart, setCart]= useState([]);
-  const prueba ="otra prueba"
-
-  function addToCart(product, count){
-    const newCart = [...cart];
-   if (isInCart(product.id)) {
-          const indexUpdate = cart.findIndex((item) => item.id === product.id);
-          newCart[indexUpdate].count+= count;
-          setCart(newCart);
-   }
-   else {
-    const newCart = cart.map((item)=>item);
-    const newItemInCart ={...product, count };
-    newCart.push(newItemInCart);
-    setCart(newCart);
-   }
-  }
-
-
-function isInCart(id) {
-  return cart.some((item)=> item.id === id);
-}
-  function removeItem(id){
-    setCart(cart.filter((item)=>item.id !== id));
-  }
-
-
-  function clearCart(){
-    return null;
-  }
-
-
-  function getTotalItemInCart(){
-    let total = 0;
-    cart.forEach((item)=>{
-      total +=item.count;
-    });
-    return total;
-
-  }
-
-  function getItem(id){
-
-  }
-
-
-
-  return(
-    <cartContext.Provider value={ { cart, prueba,addToCart,removeItem,clearCart,getTotalItemInCart} } >
-      {props.children}
-    </cartContext.Provider>
-  )
-}
 
 function App() {
 
@@ -87,9 +30,10 @@ function App() {
                       <Saludo username="a la mejor tienda"/>
                       <Routes>
                          <Route path="/" element={<ItemListContainer/>} />
-                         <Route path="/category/:categoryId*" element={<ItemListContainer/>} />
+                         <Route path="/category/:categoryId" element={<ItemListContainer/>} />
                          <Route path="/product/:id" element={<ItemDetailContainer/>} />
-                         <Route path="/cart" element={ <CartContainer/>}  />
+                         <Route path="/cart" element={ <CartContainer/>}/>
+                         <Route path='/checkout'element={<Checkout/>}/>
                          <Route path="/order-confirmation/:id" element={<OrdenConfirm/>}/>
                          <Route path="*" element={<h1>Page not found: 404 </h1>} />
                       </Routes> 

@@ -42,7 +42,10 @@ return(
               <p>{product.descripcion} </p>
               <p>Precio:{product.precio} </p>
               {isAddedToCart ? (
-                <button>Ir al carrito</button>
+                <Link to="/cart">
+                   <button className="btn">Ir al carrito</button>
+                </Link>
+                
               ) : ( <BotonCantidad onConfirm={handleAddToCard} stock={product.stock} />
 
               )
