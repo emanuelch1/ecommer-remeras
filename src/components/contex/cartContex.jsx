@@ -46,6 +46,15 @@ function isInCart(id) {
 
   }
 
+  function getTotalPrinceInCart(){
+    let total = 0;
+    cart.forEach((item)=>{
+      total +=item.count*item.price;
+    });
+    return total;
+
+  }
+
   function getItem(id){
 
   }
@@ -53,7 +62,7 @@ function isInCart(id) {
 
 
   return(
-    <cartContext.Provider value={ { cart, prueba,addToCart,removeItem,clearCart,getTotalItemInCart} } >
+    <cartContext.Provider value={ { cart, prueba, addToCart, removeItem, clearCart, getTotalItemInCart,getTotalPrinceInCart } } >
       {props.children}
     </cartContext.Provider>
   )

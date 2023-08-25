@@ -10,11 +10,11 @@ function Checkout(){
     const [buyer,setBuyer]= useState({
         firstname:"",
         lastname:"",
-        age:"",
+        mail:"",
     });
 
     const navigate = useNavigate();
-    const {cart} = useContext(cartContext);
+    const {cart, getTotalItemInCart} = useContext(cartContext);
     
 
     async function handleCheckout(evt) {
@@ -23,7 +23,7 @@ function Checkout(){
         item: cart,
         buyer:buyer,
         date: new Date(),
-        total:999,
+        total:getTotalItemInCart(),
     };
 
     
@@ -52,29 +52,29 @@ function resetForm(e){
     setBuyer({
         firstname:"",
         lastname:"",
-        ege:"",
+        mail:"",
     })
 }
 return(
     <form>
         <h2>Completa los datos para completar la compra</h2>
-        <div style={{display:'flex', marginBottom: 8 }}>
-            <label htmlFor="lasname" style={{width:'100px', marginRight:4}}>Nombre</label>
-            <input value={buyer.firstname} name=" firstname" type="text" onChange={onInputChange}></input>
-
+        <div style={{display:'flex', marginBottom: 10, textAlign:"center"}}>
+            <label htmlFor="firstname" style={{width:'250px', marginRight:4}}>Nombre:</label>
+            <input value={buyer.firstname} name="firstname" type="text" onChange={onInputChange}></input>
         </div>
-        <div style={{display:'flex', marginBottom: 8 }}>
-            <label htmlFor="lasname" style={{width:'100px', marginRight:4}}>Apellido</label>
+
+        <div style={{display:'flex', marginBottom: 10 }}>
+            <label htmlFor="lasname" style={{width:'250px', marginRight:4}}>Apellido:</label>
             <input value={buyer.lastname} name="lastname" type="text" onChange={onInputChange}></input>
-
         </div>
-        <div style={{display:'flex', marginBottom: 8 }}>
-            <label htmlFor="lasname" style={{width:'100px', marginRight:4}}>Edad</label>
-            <input value={buyer.age} name="ege" type="number" onChange={onInputChange}></input>
+        
+        <div style={{display:'flex', marginBottom: 10 }}>
+            <label htmlFor="mail" style={{width:'250px', marginRight:4}}>E-mail:</label>
+            <input value={buyer.mail} name="mail" type="text" onChange={onInputChange}></input>
         </div>
 
         <button className="btn"
-        disable={!(buyer.firstname !== '' && buyer.lastname !== '' && buyer.age !== '')}
+        disabled={!(buyer.firstname !== '' && buyer.lastname !== '' && buyer.mail !== '')}
         onClick={handleCheckout}
         >
     Confirmar Compra
